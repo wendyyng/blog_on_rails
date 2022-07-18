@@ -3,9 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.0"
 
-# Use Sass to process CSS
-gem "sassc-rails"
-
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
 
@@ -31,6 +28,9 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 gem "pry-rails"
+
+# Use Sass to process CSS
+gem "sassc-rails"
 
 gem "faker"
 
