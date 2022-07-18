@@ -13,7 +13,7 @@ Comment.destroy_all
     created_at = Faker::Date.backward(days:365 * 5)
     q = Post.create(
       title: Faker::Hacker.say_something_smart,
-      body: Faker::Lorem.paragraphs,
+      body: Faker::Lorem.paragraph_by_chars(number: 55, supplemental: false),
       created_at: created_at,
       updated_at: created_at,
     )

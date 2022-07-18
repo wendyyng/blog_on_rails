@@ -1,1 +1,38 @@
-<h1>Show Post</h1>
+<h1>Post Show page</h1>
+
+<h2><%= @post.title %></h2>
+<p><%= @post.body %></p>
+
+<%= link_to 'Edit', edit_post_path(@post) %>
+<%= button_to 'Delete', post_path(@post), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }  %>  
+
+
+<h4>Comments</h4>
+<hr>
+
+<% @comments.each do |comment| %>
+  <div>
+    <%= comment.body %>
+    <small>Commented <%= time_ago_in_words(comment.created_at) %> ago</small>
+    <%= button_to "Delete", post_comment_path(@post, comment), method: :delete,form: { data: { turbo_confirm: "Are you sure?" } } %>
+    <hr>
+  </div>
+<% end %>
+
+<h3>Write a comment</h3>
+
+<% if @comment.errors.any? %>
+  <ul>
+    <%  @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_with(model:[@post, @comment]) do |f| %>
+  <div>
+    <%= f.label :body %>
+    <br>
+    <%= f.text_area :body, cols: 50, rows: 5 %>
+  </div>
+  <%= f.submit "Comment" %>
+<% end %>
