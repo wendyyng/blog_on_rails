@@ -1,25 +1,18 @@
-<h1>Post Show page</h1>
+<div class="container">
 
+<div class="container">
 <h2><%= @post.title %></h2>
 <p><%= @post.body %></p>
+<small>Posted <%= time_ago_in_words(@post.created_at) %> ago</small>
+<div class="btn-group">
+<%= link_to 'Edit', edit_post_path(@post), class: "btn btn-outline-primary" %>
+</br>
+<%= button_to 'Delete', post_path(@post), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-outline-primary"  %>  
+</div>
+</div>
 
-<%= link_to 'Edit', edit_post_path(@post) %>
-<%= button_to 'Delete', post_path(@post), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }  %>  
-
-
-<h4>Comments</h4>
-<hr>
-
-<% @comments.each do |comment| %>
-  <div>
-    <%= comment.body %>
-    <small>Commented <%= time_ago_in_words(comment.created_at) %> ago</small>
-    <%= button_to "Delete", post_comment_path(@post, comment), method: :delete,form: { data: { turbo_confirm: "Are you sure?" } } %>
-    <hr>
-  </div>
-<% end %>
-
-<h3>Write a comment</h3>
+<div class="container">
+<h3>Comment</h3>
 
 <% if @comment.errors.any? %>
   <ul>
@@ -30,9 +23,21 @@
 <% end %>
 <%= form_with(model:[@post, @comment]) do |f| %>
   <div>
-    <%= f.label :body %>
-    <br>
-    <%= f.text_area :body, cols: 50, rows: 5 %>
+    <%= f.text_area :body, cols: 50, rows: 2, placeholder: "  What's on your mind?" %>
   </div>
-  <%= f.submit "Comment" %>
+  <%= f.submit "Submit", class: "btn btn-outline-primary" %>
 <% end %>
+</div>
+
+<div class="container">
+<% @comments.each do |comment| %>
+  <div>
+    <%= comment.body %>
+
+    <small>Commented <%= time_ago_in_words(comment.created_at) %> ago  · <%= button_to "Delete", post_comment_path(@post, comment), method: :delete,form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-link text-decoration-none" %></small>
+
+  </div>
+<% end %>
+</div>
+
+</div>
