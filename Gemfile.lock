@@ -72,12 +72,15 @@ GEM
     builder (3.2.4)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
+    cowsay (0.3.0)
     crass (1.0.6)
     debug (1.6.1)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
     digest (3.1.0)
     erubi (1.10.0)
+    faker (2.21.0)
+      i18n (>= 1.8.11, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -192,7 +195,9 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  cowsay
   debug
+  faker
   importmap-rails
   jbuilder
   pg (~> 1.1)

@@ -29,6 +29,10 @@ gem "jbuilder"
 
 gem "pry-rails"
 
+gem "faker"
+
+gem 'cowsay'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
