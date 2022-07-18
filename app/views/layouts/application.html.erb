@@ -11,10 +11,26 @@
   </head>
 
   <body>
-  <nav>
-    <%= link_to "Blog on Rails", root_path %>
-    <%= link_to "Home", posts_path %>
-    <%= link_to "New Post", new_post_path %>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href="<%= root_path %>">Blog on Rails</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" href="<%= root_path %>">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= new_post_path %>">New Post</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
   </nav>
 
     <% flash.each do |type, message| %>
@@ -22,7 +38,7 @@
         <%= type + "------" + message %>
       </div>
     <% end %>
-    
+
     <%= yield %>
   </body>
 </html>
