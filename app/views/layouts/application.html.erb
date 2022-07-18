@@ -11,6 +11,11 @@
   </head>
 
   <body>
+  <nav>
+    <%= link_to "Blog on Rails", root_path %>
+    <%= link_to "Home", posts_path %>
+    <%= link_to "New Post", new_post_path %>
+  </nav>
     <%= yield %>
   </body>
 </html>
