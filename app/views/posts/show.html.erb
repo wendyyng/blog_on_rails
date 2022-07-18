@@ -1,9 +1,10 @@
 <div class="container">
 
 <div class="container" style="margin: 1em">
-<h2><%= @post.title %></h2>
+<h1><%= @post.title %></h2>
 <p><%= @post.body %></p>
 <small>Posted <%= time_ago_in_words(@post.created_at) %> ago</small>
+<br><br>
 <div class="btn-group">
 <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-outline-primary", style:"margin-right: 0.5em" %>
 </br>
@@ -22,20 +23,20 @@
   </ul>
 <% end %>
 <%= form_with(model:[@post, @comment]) do |f| %>
-  <div>
-    <%= f.text_area :body, cols: 50, rows: 2, placeholder: "  What's on your mind?" %>
+  <div class="form-group">
+    <%= f.text_area :body, cols: 50, rows: 2, placeholder: "What's on your mind?", class:"form-control", style:"width: 25em" %>
   </div>
+  <br>
   <%= f.submit "Submit", class: "btn btn-outline-primary" %>
 <% end %>
 </div>
-
 <div class="container" style="margin: 1em">
 <% @comments.each do |comment| %>
   <div>
     <%= comment.body %>
 
-    <span style="display: inline-block" ><small>Commented <%= time_ago_in_words(comment.created_at) %> ago  · </small></span>
-    <%= button_to "Delete", post_comment_path(@post, comment), method: :delete,form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-link text-decoration-none" %>
+    <span style="display: flex; flex-direction: row; align-items: baseline"><small>Commented <%= time_ago_in_words(comment.created_at) %> ago  •</small>
+    <span><%= button_to "Delete", post_comment_path(@post, comment), method: :delete,form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-link text-decoration-none"%></span></span>
 
   </div>
 <% end %>

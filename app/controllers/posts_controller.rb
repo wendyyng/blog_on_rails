@@ -13,7 +13,8 @@ class PostsController < ApplicationController
         flash[:notice]= "Post created successfully!"
         redirect_to post_path(@post)
         else
-        render :new
+        redirect_to root_path
+        flash[:alert]= "Title must be unique and body must has at least 50 characters"
         end
     end
     # ================READ========================
