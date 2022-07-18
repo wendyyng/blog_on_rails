@@ -4,7 +4,7 @@ class PostsController < ApplicationController
     before_action :find_post, only: [:edit, :update, :show, :destroy]
     # ==============CREATE========================
     def new
-
+        @post = Post.new
     end
 
     def create
