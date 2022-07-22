@@ -1,24 +1,9 @@
-# README
+# Codecore Assignment: Blog on Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a blog project built with Ruby on Rails and styled using Bootstrap. 
 
-Things you may want to cover:
+## Functionalities include:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Show an index page with all the posts
+* Create, edit and delete posts
+* Add and delete comments to the posts
