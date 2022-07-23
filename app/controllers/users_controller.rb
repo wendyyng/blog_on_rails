@@ -4,14 +4,14 @@ class UsersController < ApplicationController
         @user = User.new
       end
     
-      def create
+    def create
         @user = User.new params.require(:user).permit(
           :name,
           :email,
           :password,
           :password_confirmation
         )
-        
+
         if @user.save
           session[:user_id] = @user.id
           flash.notice = "Signed up!"
@@ -20,5 +20,9 @@ class UsersController < ApplicationController
           render :new, status: 303
         end 
     
-      end
+    end
+
+    def edit
+    end
+    
 end
