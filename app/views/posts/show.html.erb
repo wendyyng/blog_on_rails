@@ -4,6 +4,7 @@
 <h1><%= @post.title %></h2>
 <p><%= @post.body %></p>
 <small>Posted <%= time_ago_in_words(@post.created_at) %> ago</small>
+<label>Created by: <%= @post.user.name %></label>
 <br><br>
 <div class="btn-group">
 <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-outline-primary", style:"margin-right: 0.5em" %>
@@ -34,7 +35,7 @@
 <% @comments.each do |comment| %>
   <div>
     <%= comment.body %>
-
+    <label>Created by: <%= comment.user.name %></label>
     <span style="display: flex; flex-direction: row; align-items: baseline"><small>Commented <%= time_ago_in_words(comment.created_at) %> ago  •  </small>
     <span><%= button_to "Delete", post_comment_path(@post, comment), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-link", style:"text-decoration: none; box-shadow:none; padding: 0 0 0 0.32em" %></span></span>
 
