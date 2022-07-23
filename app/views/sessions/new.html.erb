@@ -1,0 +1,16 @@
+<div class="container">
+<h1>Sign In</h1>
+
+<%= form_with url: session_path do |form| %>
+  <div>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+  <%= form.submit "Sign In" %>
+<% end %>
+
+</div>
