@@ -6,10 +6,11 @@ class Ability
   def initialize(user)
     # Define abilities for the user here. For example:
     #
-    #   return unless user.present?
-    #   can :read, :all
-    #   return unless user.admin?
-    #   can :manage, :all
+    user ||= User.new # guest user (not logged in)
+
+    if user.is_admin?
+      can :manage, :all # manage means they can do everything (not just CRUD)
+    end
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
@@ -28,5 +29,16 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
+
+    alias_action :create, :read, :update, :delete, to: :crud
+
+    can :crud, Post do |post|
+      user == post.user
+    end
+    # can :crud, Question, user_id: user.id
+    can :crud, Comment do |comment|
+      user == comment.user
+    end
+
   end
 end
