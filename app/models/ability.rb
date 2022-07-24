@@ -35,10 +35,14 @@ class Ability
     can :crud, Post do |post|
       user == post.user
     end
-    # can :crud, Question, user_id: user.id
+
     can :crud, Comment do |comment|
       user == comment.user || user == comment.post.user
     end
+
+    # can :crud, User do |user|
+    #   user == User.user
+    # end
 
   end
 end

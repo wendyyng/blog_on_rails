@@ -9,11 +9,9 @@ Rails.application.routes.draw do
   end
 
 
-  # get("users/:id/edit/", {to: 'users#edit', as: 'edit_user'})
+  get("users/:id/edit/pass_edit", {to: 'users#pass_edit', as: 'pass_edit'})
+
   resources :users, only:[:new, :create, :edit, :update]
   resource :session, only:[:new, :create, :destroy]
-
-
- 
 
 end

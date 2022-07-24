@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
    # =============CALLBACKS=====================
-   before_action :find_user, only: [:update]  
+   before_action :find_user, only: [:update, :pass_edit]  
   
   # ==============CREATE========================
     def new
@@ -46,6 +46,13 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def pass_edit
+  end
+
+  def pass_update
+    
   end
     
 end
