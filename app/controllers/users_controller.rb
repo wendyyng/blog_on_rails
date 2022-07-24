@@ -34,12 +34,9 @@ class UsersController < ApplicationController
           redirect_to root_path
         else
           render :edit
+          flash.notice = "Error!"
         end
     end
-
-    def pass_edit
-      @user = current_user
-  end
 
   private
 
@@ -48,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
     
 end
