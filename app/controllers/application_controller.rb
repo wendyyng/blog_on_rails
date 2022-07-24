@@ -1,18 +1,19 @@
 class ApplicationController < ActionController::Base
+
     private 
-
+    
     def current_user
-        if session[:user_id].present?
-            @current_user ||= User.find_by(id: session[:user_id])
-        end
-    end
-    helper_method :current_user
-
-    def authenticate_user!
-        unless current_user.present?
-            flash[:alert] = "You must sign in or sign up first!"
-            redirect_to root_path
-        end
-    end
-    helper_method :authenticate_user!
+        @current_user ||= User.find_by_id session[:user_id]
+      end
+      helper_method :current_user
+      # 'helper_method' makes the method also available for the views
+    
+      def user_signed_in?
+        current_user.present?
+      end
+      helper_method :user_signed_in?
+    
+      def authenticate_user!
+        redirect_to new_session_path, notice: "Please sign in" unless user_signed_in?
+      end
 end

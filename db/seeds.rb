@@ -23,7 +23,7 @@ super_user = User.create(
   name = Faker::Name.first_name
   last_name = Faker::Name.last_name
   User.create(
-    name: first_name,
+    name: name,
     email: "#{name.downcase}@#{last_name.downcase}.com",
     password: PASSWORD
   )

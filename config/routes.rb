@@ -11,4 +11,7 @@ Rails.application.routes.draw do
   resources :users, only:[:new, :create, :edit]
   resource :session, only:[:new, :create, :destroy]
 
+
+  get("users/:id/edit/pass_edit", {to: 'users#pass_edit', as: 'edit_user_password'})
+
 end

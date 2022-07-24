@@ -3,15 +3,19 @@
 <div class="container" style="margin: 1em">
 <h1><%= @post.title %></h2>
 <p><%= @post.body %></p>
-<small>Posted <%= time_ago_in_words(@post.created_at) %> ago</small>
-<label>Created by: <%= @post.user.name %></label>
+<small>Posted <%= time_ago_in_words(@post.created_at) %> ago</small><br>
+<small>Created by: <%= @post.user.name %></small>
 <br><br>
+
+<%# Edit and Delete Buttons %>
+<%# <% if can? :crud, @post %> %>
 <div class="btn-group">
 <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-outline-primary", style:"margin-right: 0.5em" %>
 </br>
 <%= button_to 'Delete', post_path(@post), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-outline-primary"  %>  
 </div>
 </div>
+<%# <% end %> %>
 
 <div class="container" style="margin: 1em">
 <h3 >Comment</h3>
@@ -34,11 +38,14 @@
 <div class="container" style="margin: 1em">
 <% @comments.each do |comment| %>
   <div>
-    <%= comment.body %>
-    <label>Created by: <%= comment.user.name %></label>
+    <%= comment.body %><br>
+    
     <span style="display: flex; flex-direction: row; align-items: baseline"><small>Commented <%= time_ago_in_words(comment.created_at) %> ago  •  </small>
+    <%# Delete Button %>
+    <%# <% if can? :crud, comment %> %>
     <span><%= button_to "Delete", post_comment_path(@post, comment), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-link", style:"text-decoration: none; box-shadow:none; padding: 0 0 0 0.32em" %></span></span>
-
+      <%# <% end %> %>
+      <small>Created by: <%= comment.user.name %></small>
   </div>
 <% end %>
 </div>

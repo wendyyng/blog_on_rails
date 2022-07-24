@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
     def create
         @comment = Comment.new(params.require(:comment).permit(:body))
         @comment.post = @post
+        @comment.user = current_user
         if @comment.save
         redirect_to post_path(@post), notice: "Comment created!"
         else

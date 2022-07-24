@@ -23,6 +23,11 @@ class UsersController < ApplicationController
     end
 
     def edit
+      @user = current_user
     end
+
+    def pass_edit
+      @user = current_user
+  end
     
 end
