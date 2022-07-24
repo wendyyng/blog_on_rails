@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
    # =============CALLBACKS=====================
-   before_action :find_user, only: [:update, :pass_edit]  
+   before_action :find_user, only: [:edit, :update, :pass_edit, :pass_update]  
   
   # ==============CREATE========================
-    def new
+  def new
         @user = User.new
-      end
+  end
     
     def create
         @user = User.new params.require(:user).permit(
@@ -26,16 +26,33 @@ class UsersController < ApplicationController
     end
     # ===============UPDATE==========================
     def edit
-      @user = current_user
+      # @user = current_user
     end
 
     def update
       if current_user.update(user_params)
           redirect_to root_path
+          flash.notice = "Account updated successfully!"
         else
           render :edit
           flash.notice = "Error!"
         end
+    end
+  
+
+    def pass_edit
+    end
+  
+    def pass_update  
+      if current_user
+        if params[:current_user] != current_user.password
+          redirect_to root_path
+          flash.notice = "Incorrect Password!"
+        else
+          redirect_to root_path
+          flash.notice = "Password updated successfully!"
+        end
+      end
     end
 
   private
@@ -47,12 +64,9 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-
-  def pass_edit
+  
+  def pass_params
+    params.require(:user).permit(:name, :email, :current_password, :new_password, :password_confirmation)
   end
 
-  def pass_update
-    
-  end
-    
 end
