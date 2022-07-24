@@ -4,15 +4,21 @@ class CommentsController < ApplicationController
     before_action :find_post
     # ==============CREATE========================
     def create
-        @comment = Comment.new(params.require(:comment).permit(:body))
-        @comment.post = @post
-        @comment.user = current_user
-        if @comment.save
-        redirect_to post_path(@post), notice: "Comment created!"
+        if current_user.present?
+            @comment = Comment.new(params.require(:comment).permit(:body))
+            @comment.post = @post
+            @comment.user = current_user
+
+            if @comment.save
+                redirect_to post_path(@post), notice: "Comment created!"
+            else
+                @comments = @post.comments.order(created_at: :desc)
+                render '/posts/show', status: 303
+            end
         else
-         @comments = @post.comments.order(created_at: :desc)
-      render '/posts/show', status: 303
-    end
+            flash[:alert] = "You need to sign in first!"
+        end
+        
     end
 
     # ================DELETE=========================
