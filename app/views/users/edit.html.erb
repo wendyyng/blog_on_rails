@@ -5,7 +5,7 @@
   <p><%= @user.errors.full_messages.join(', ') %> </p>
 <% end %>
 
-   <%= form_with(model: @user, local: true, url: users_path) do |f| %>
+   <%= form_with(model: @user, local: true) do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class:"form-control" %>
