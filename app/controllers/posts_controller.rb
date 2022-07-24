@@ -13,12 +13,14 @@ class PostsController < ApplicationController
         @post = Post.new(post_params)
         @post.user = current_user
         if @post.save
-        flash[:notice]= "Post created successfully!"
-        redirect_to post_path(@post)
+            flash[:notice]= "Post created successfully!"
+            redirect_to post_path(@post)
         else
-        redirect_to root_path
-        flash[:alert]= "Title must be unique and body must has at least 50 characters"
+            redirect_to root_path
+            flash[:alert]= "Title must be unique and body must has at least 50 characters"
         end
+       
+        
     end
     # ================READ========================
     def index

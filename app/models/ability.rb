@@ -37,7 +37,7 @@ class Ability
     end
     # can :crud, Question, user_id: user.id
     can :crud, Comment do |comment|
-      user == comment.user
+      user == comment.user || user == comment.post.user
     end
 
   end
