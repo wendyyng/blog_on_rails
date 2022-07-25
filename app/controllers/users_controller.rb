@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   # =============CALLBACKS=====================
   before_action :find_user, only: [:update]  
-  before_action :authenticate_user!, only: [:update]
+  before_action :authenticate_user!, only: [:update, :edit]
 
  # ==============CREATE========================
  def new
