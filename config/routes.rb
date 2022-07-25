@@ -8,11 +8,11 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
-  resources :users, only:[:new, :create, :edit, :update]
+  resources :users 
   resource :session, only:[:new, :create, :destroy]
 
+  get '/account_details' => 'users#edit'
+  get '/change_password', to: 'users#change_password', as: :change_password
+  post '/update_password', to: 'users#update_password', as: :update_password
 
-  get("users/:id/edit/pass_edit", {to: 'users#pass_edit', as: 'pass_edit'})
-  patch("users/:id/edit/pass_edit/pass_update", {to: 'users#pass_update', as: 'pass_update'})
-  
 end

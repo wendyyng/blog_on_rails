@@ -1,72 +1,84 @@
+
 class UsersController < ApplicationController
-   # =============CALLBACKS=====================
-   before_action :find_user, only: [:edit, :update, :pass_edit, :pass_update]  
-  
-  # ==============CREATE========================
-  def new
-        @user = User.new
-  end
-    
-    def create
-        @user = User.new params.require(:user).permit(
-          :name,
-          :email,
-          :password,
-          :password_confirmation
-        )
+  # =============CALLBACKS=====================
+  before_action :find_user, only: [:update]  
+  before_action :authenticate_user!, only: [:update]
 
-        if @user.save
-          session[:user_id] = @user.id
-          flash.notice = "Signed up!"
-          redirect_to root_path
-        else
-          render :new, status: 303
-        end 
-    
-    end
-    # ===============UPDATE==========================
-    def edit
-      # @user = current_user
-    end
+ # ==============CREATE========================
+ def new
+       @user = User.new
+ end
+   
+   def create
+       @user = User.new user_params
 
-    def update
-      if current_user.update(user_params)
+       if @user.save
+         session[:user_id] = @user.id
+         flash.notice = "Signed up!"
+         redirect_to root_path
+       else
+         render :new, status: 303
+       end 
+   
+   end
+
+   # ===============UPDATE==========================
+   def edit
+    @user = User.find_by_id current_user.id
+   end
+
+   def update
+    if @user.update user_params
+      redirect_to root_path
+      flash.notice = "Account updated successfully!"
+      else
+         render :edit
+         flash.notice = "Error!"
+       end
+   end
+ 
+   def change_password 
+    @user = User.find_by_id current_user.id
+   end
+ 
+   def update_password  
+    @user = User.find_by_id current_user.id
+
+    @current_password = params[:current_password]
+    @new_password = params[:new_password]
+    @new_password_confirmation = params[:new_password_confirmation]
+
+    if @user && @user.authenticate(@current_password)
+
+      if @current_password != @new_password && @new_password == @new_password_confirmation
+        if @user.update password: @new_password
+          flash.alert = 'Password has been updated successfully'
           redirect_to root_path
-          flash.notice = "Account updated successfully!"
-        else
-          render :edit
-          flash.notice = "Error!"
         end
-    end
-  
-
-    def pass_edit
-    end
-  
-    def pass_update  
-      if current_user
-        if params[:current_user] != current_user.password
-          redirect_to root_path
-          flash.notice = "Incorrect Password!"
-        else
-          redirect_to root_path
-          flash.notice = "Password updated successfully!"
-        end
+      elsif @current_password == @new_password
+          flash.alert = 'New password has to be different'
+          render :change_password, status: 303
+      elsif @current_password != @new_password && @new_password != @new_password_confirmation
+          flash.alert = 'New passwords do not match'
+          render :change_password, status: 303
       end
+
+    else
+      flash.alert = 'Error! Please try again!'
+      render :change_password, status: 303
     end
 
-  private
-
-  def find_user
-    @user = User.find params[:id]
   end
 
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
-  end
-  
-  def pass_params
-    params.require(:user).permit(:name, :email, :current_password, :new_password, :password_confirmation)
-  end
+
+ private
+
+ def find_user
+   @user = User.find_by_id params[:id]
+ end
+
+ def user_params
+   params.require(:user).permit(:name, :email, :password, :password_confirmation)
+ end
 
 end
