@@ -13,11 +13,11 @@ class ApplicationController < ActionController::Base
       end
       helper_method :user_signed_in?
     
-      def authenticate_user!
+      def authenticated_user!
         unless user_signed_in?
             flash[:alert] = "Please sign in!" 
             redirect_to root_path
         end
       end
-      helper_method :authenticate_user!
+      helper_method :authenticated_user!
 end

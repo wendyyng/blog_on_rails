@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
 
     # =============CALLBACKS=====================
     before_action :find_post
-    before_action :authenticate_user!
+    before_action :authenticated_user!
     # ==============CREATE========================
     def create
         # if current_user.present?
