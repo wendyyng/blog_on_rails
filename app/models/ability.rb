@@ -40,9 +40,9 @@ class Ability
       user == comment.user || user == comment.post.user
     end
 
-    # can :crud, User do |user|
-    #   user == User.user
-    # end
+    can :crud, User do |user|
+      user == user.user
+    end
 
   end
 end
