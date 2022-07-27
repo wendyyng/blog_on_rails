@@ -8,9 +8,52 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
   </head>
 
   <body>
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href="<%= root_path %>" style="color: #0d6efd; margin-left: 1em">Blog on Rails</a>
+
+  <div class="navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <ul class="nav navbar-nav mr-auto ">
+
+
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= account_details_path %>">Hello <%= current_user.name %> </a>
+        </li>
+        <li class="nav-item">
+          <div><%= button_to "Log out", session_path, method: :delete, class: "btn btn-danger" %></div>
+        </li>
+      <% end %>
+
+      <% if !user_signed_in? %>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= new_session_path %>" style="color: #0d6efd; margin: 0 0 0 0">Sign In</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= new_user_path %>" style="color: #0d6efd; margin: 0 0 0 0">Sign Up</a>
+      </li>
+      <% end %>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= root_path %>" style="color: #0d6efd; margin: 0 0 0 0">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= new_post_path %>" style="color: #0d6efd; margin: 0 1em 0 0">New Post</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+    <% flash.each do |type, message| %>
+      <div class="alert alert-info" role="alert">
+        <%= type + "------" + message %>
+      </div>
+    <% end %>
+</div>
     <%= yield %>
   </body>
 </html>

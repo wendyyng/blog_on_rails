@@ -1,0 +1,57 @@
+<div class="container d-flex justify-content-center">
+<div class="col-sm-6 m-4">
+<div class="container" style="margin: 1em">
+  <h1><%= @post.title %></h2>
+  <p><%= @post.body %></p>
+  <small>Posted <%= time_ago_in_words(@post.created_at) %> ago</small><br>
+  <small>Created by: <%= @post.user.name %></small>
+  <br><br>
+
+  <%# Edit and Delete Buttons %>
+  <% if can? :crud, @post %>
+  <div class="btn-group">
+  <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-outline-primary", style:"margin-right: 0.5em" %>
+  </br>
+  <%= button_to 'Delete', post_path(@post), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-outline-primary"  %>  
+  </div>
+  <% end %>
+</div>
+
+
+<div class="container" style="margin: 1em">
+<h3 >Comment</h3>
+
+<% if @comment.errors.any? %>
+  <ul>
+    <%  @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_with(model:[@post, @comment]) do |f| %>
+  <div class="form-group">
+    <%= f.text_area :body, cols: 50, rows: 2, placeholder: "What's on your mind?", class:"form-control", style:"width: 25em" %>
+  </div>
+  <br>
+  <%= f.submit "Submit", class: "btn btn-outline-primary" %>
+<% end %>
+</div>
+<div class="container" style="margin: 1em">
+<% @comments.each do |comment| %>
+  <div class="mb-3">
+    <%= comment.body %><br>
+    
+    <span style="display: flex; flex-direction: row; align-items: baseline"><small>Commented <%= time_ago_in_words(comment.created_at) %> ago by <%= comment.user.name %></small>
+    <%# Delete Button %>
+    <% if can? :crud, comment %>
+    <span><%= button_to "Delete", post_comment_path(@post, comment), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-link", style:"text-decoration: none; box-shadow:none; padding: 0 0 0 0.32em" %></span></span>
+    <% else %>
+    <br>
+    <% end %>
+    
+  </div>
+<% end %>
+</div>
+
+</div>
+</div>
