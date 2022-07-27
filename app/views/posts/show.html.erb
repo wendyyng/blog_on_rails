@@ -45,8 +45,10 @@
     <%# Delete Button %>
     <% if can? :crud, comment %>
     <span><%= button_to "Delete", post_comment_path(@post, comment), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-link", style:"text-decoration: none; box-shadow:none; padding: 0 0 0 0.32em" %></span></span>
-    <% end %>
+    <% else %>
     <br>
+    <% end %>
+    
   </div>
 <% end %>
 </div>
