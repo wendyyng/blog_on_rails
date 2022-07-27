@@ -41,12 +41,12 @@
   <div>
     <%= comment.body %><br>
     
-    <span style="display: flex; flex-direction: row; align-items: baseline"><small>Commented <%= time_ago_in_words(comment.created_at) %> ago  •  </small>
+    <span style="display: flex; flex-direction: row; align-items: baseline"><small>Commented <%= time_ago_in_words(comment.created_at) %> ago by <%= comment.user.name %></small>
     <%# Delete Button %>
     <% if can? :crud, comment %>
     <span><%= button_to "Delete", post_comment_path(@post, comment), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-link", style:"text-decoration: none; box-shadow:none; padding: 0 0 0 0.32em" %></span></span>
     <% end %>
-      <small>Commented by: <%= comment.user.name %></small>
+    <br>
   </div>
 <% end %>
 </div>
