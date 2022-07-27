@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 
     # =============CALLBACKS=====================
     before_action :find_post, only: [:edit, :update, :show, :destroy]
-    before_action :authenticate_user!, except: [:index, :show]
+    before_action :authenticated_user!, except: [:index, :show]
     before_action :authorize_user!, only:[:edit, :update, :destroy]
     # ==============CREATE========================
     def new
@@ -16,8 +16,8 @@ class PostsController < ApplicationController
             flash[:notice]= "Post created successfully!"
             redirect_to post_path(@post)
         else
-            redirect_to root_path
-            flash[:alert]= "Title must be unique and body must has at least 50 characters"
+            # flash[:alert]= "Title must be unique and body must has at least 50 characters"
+            render :new, status: 303  
         end
        
         

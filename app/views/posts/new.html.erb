@@ -1,6 +1,9 @@
 <div class="container d-flex justify-content-center">
 <div class="col-sm-6 m-4">
 <%= form_with(model: @post) do |form| %>
+<% if @post.errors.any? %>
+  <p><%= @post.errors.full_messages.join(', ') %> </p>
+<% end %>
   <div class="form-group">
     <%= form.label :title %>
     <br>
