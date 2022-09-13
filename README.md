@@ -1,4 +1,4 @@
-# Codecore Assignment: Blog on Rails
+# Blog on Rails
 
 This is a blog project built with Ruby on Rails and styled using Bootstrap. 
 
